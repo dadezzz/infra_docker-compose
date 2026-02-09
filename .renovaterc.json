@@ -6,7 +6,7 @@
     {
       "automerge": true,
       "matchFileNames": [".devcontainer/**", ".forgejo/**"],
-      "matchUpdateTypes": ["digest", "minor", "patch", "pin"],
-    },
-  ],
+      "matchUpdateTypes": ["digest", "minor", "patch", "pin"]
+    }
+  ]
 }
