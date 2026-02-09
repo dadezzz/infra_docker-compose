@@ -13,6 +13,7 @@ services:
       FORGEJO__api__ENABLE_SWAGGER: false
 
       FORGEJO__cache__ADAPTER: twoqueue
+      # prettier-ignore
       FORGEJO__cache__HOST: "{ \"size\": 100, \"recent_ratio\": 0.25, \"ghost_ratio\": 0.5 }"
 
       FORGEJO__database__DB_TYPE: sqlite3
