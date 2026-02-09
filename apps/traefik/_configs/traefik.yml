@@ -1,0 +1,53 @@
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      dnsChallenge:
+        provider: cloudflare
+      storage: /var/lib/traefik/certificates/acme.json
+entryPoints:
+  cloudflared:
+    address: :8081
+    forwardedHeaders:
+      trustedIPs:
+        - 172.16.0.0/12
+  http:
+    address: :8080
+    transport:
+      respondingTimeouts:
+        # Disable request reading timeout since large uploads on slow
+        # connections tend to fail.
+        readTimeout: 0
+  https:
+    address: :8443
+    http:
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: zarantonello.dev
+            sans:
+              - "*.zarantonello.dev"
+          - main: zarantonello.net
+            sans:
+              - "*.zarantonello.net"
+    http3:
+      advertisedPort: 443
+    transport:
+      respondingTimeouts:
+        readTimeout: 0
+  traefik:
+    address: :8082
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: true
+log:
+  level: INFO
+metrics:
+  prometheus:
+    headerLabels:
+      cfcountry: CF-IPCountry
+      useragent: User-Agent
+ping: {}
+providers:
+  docker:
+    exposedByDefault: false
+    network: traefik_default

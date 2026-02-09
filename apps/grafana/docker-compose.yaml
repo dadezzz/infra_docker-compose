@@ -1,0 +1,41 @@
+configs:
+  grafana:
+    file: ./grafana.ini
+
+networks:
+  alloy_default:
+    external: true
+  traefik_default:
+    external: true
+
+services:
+  grafana:
+    cap_drop:
+      - ALL
+    configs:
+      - source: grafana
+        target: /etc/grafana/grafana.ini
+    env_file: .env
+    environment:
+      GF_INSTALL_PLUGINS: victoriametrics-logs-datasource,victoriametrics-metrics-datasource
+    image: docker.io/grafana/grafana:12.3.1@sha256:2175aaa91c96733d86d31cf270d5310b278654b03f5718c59de12a865380a31f
+    labels:
+      monitoring.collect: true
+      monitoring.metrics.port: 3000
+      traefik.enable: true
+      traefik.http.routers.grafana.entrypoints: https
+      traefik.http.routers.grafana.rule: Host(`grafana.zarantonello.net`)
+      traefik.http.services.grafana.loadbalancer.server.port: 3000
+    networks:
+      - traefik_default
+      - alloy_default
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:uid=31904,gid=31904
+    user: 31904:31904
+    volumes:
+      - ./_configs/provisioning:/etc/grafana/provisioning:ro
+      - $HOME/volumes/grafana:/var/lib/grafana

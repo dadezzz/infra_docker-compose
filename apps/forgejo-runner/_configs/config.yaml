@@ -1,0 +1,26 @@
+cache:
+  dir: /data/cache
+
+container:
+  network: forgejo-runner_default
+  # Mount pod's /etc/hosts to keep the git.zarantonello.dev address override.
+  options: -v /etc/hosts:/etc/hosts -v /var/run/docker.sock:/var/run/docker.sock
+  privileged: true
+  valid_volumes:
+    - /etc/hosts
+    - /var/run/docker.sock
+
+host:
+  workdir_parent: /data/job
+
+log:
+  job_level: info
+  level: info
+
+runner:
+  capacity: 1
+  fetch_interval: 10s
+  file: /data/registration
+  # Jobs shouldn't run longer than 10 minutes at most, so this is a pretty safe
+  # margin.
+  shutdown_timeout: 30m

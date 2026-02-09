@@ -1,0 +1,5 @@
+mail.zarantonello.dev {
+    tls {$LETSENCRYPT_ACME_EMAIL} {
+    	dns cloudflare {$CF_DNS_API_TOKEN}
+    }
+}

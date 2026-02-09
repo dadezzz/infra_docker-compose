@@ -1,0 +1,36 @@
+configs:
+  blocky:
+    file: ./_configs/blocky.yaml
+
+networks:
+  alloy_default:
+    external: true
+
+services:
+  blocky:
+    cap_add:
+      - NET_BIND_SERVICE
+    cap_drop:
+      - ALL
+    configs:
+      - source: blocky
+        target: /app/config.yml
+    healthcheck:
+      interval: 60s
+      retries: 5
+      test:
+        - CMD
+        - /app/blocky
+        - healthcheck
+      timeout: 5s
+    image: ghcr.io/0xerr0r/blocky:v0.28.2
+    labels:
+      monitoring.collect: true
+      monitoring.metrics.port: 8080
+    networks:
+      - alloy_default
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: 21575:21575

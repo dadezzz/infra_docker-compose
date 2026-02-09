@@ -1,0 +1,63 @@
+configs:
+  alloy:
+    file: ./_configs/config.alloy
+
+networks:
+  alloy_default:
+    name: alloy_default
+
+services:
+  alloy:
+    cap_drop:
+      - ALL
+    command:
+      - run
+      - --server.http.listen-addr=[::]:12345
+      - --storage.path=/var/tmp/alloy
+      - --server.http.enable-pprof=false
+      - /etc/alloy/alloy.alloy
+    configs:
+      - source: alloy
+        target: /etc/alloy/config.alloy
+    environment:
+      NODE_HOSTNAME: ${HOSTNAME}
+    extra_hosts:
+      - hosts.docker.internal:host-gateway
+    group_add:
+      - "992"
+    image: docker.io/grafana/alloy:v1.13.0
+    labels:
+      monitoring.collect: true
+      monitoring.metrics.port: 12345
+    networks:
+      - alloy_default
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: 58210:58210
+    volumes:
+      - alloy-wal:/var/tmp/alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  node-exporter:
+    cap_drop:
+      - ALL
+    command:
+      - --path.rootfs=/host
+    image: quay.io/prometheus/node-exporter:v1.10.2
+    labels:
+      monitoring.collect: true
+      monitoring.metrics.port: 9100
+    network_mode: host
+    pid: host
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: 3095:3095
+    volumes:
+      - /:/host:ro,rslave
+
+volumes:
+  alloy-wal: {}

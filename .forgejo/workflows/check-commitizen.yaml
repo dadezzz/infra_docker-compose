@@ -1,0 +1,19 @@
+concurrency:
+  cancel-in-progress: true
+  group: ${{ forge.ref }}-${{ forge.workflow }}
+
+jobs:
+  check-commitizen:
+    container:
+      image: git.zarantonello.dev/infra/ci:v2.3.12@sha256:c8cf4667fa2e4e8ff6a5d527f5a91bbb7aa41235effafa8bd0c5b7dab1691f71
+    runs-on: srv-generic
+    steps:
+      - run: cz check --message '${{ forge.event.pull_request.title }}'
+
+"on":
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - edited

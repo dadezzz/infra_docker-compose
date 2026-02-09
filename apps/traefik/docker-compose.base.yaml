@@ -1,0 +1,49 @@
+configs:
+  traefik:
+    file: ./_configs/traefik.yml
+
+networks:
+  alloy_default:
+    external: true
+  traefik_default:
+    name: traefik_default
+
+services:
+  traefik:
+    cap_drop:
+      - ALL
+    configs:
+      - source: traefik
+        target: /etc/traefik/traefik.yml
+    env_file: .env
+    group_add:
+      - 991
+    healthcheck:
+      interval: 60s
+      retries: 5
+      test:
+        - CMD
+        - traefik
+        - healthcheck
+      timeout: 5s
+    image: docker.io/library/traefik:v3.6.7
+    labels:
+      monitoring.collect: true
+      monitoring.metrics.port: 8082
+    networks:
+      alloy_default: {}
+      # We need to set an alias for cloudflared to redirect to traefik.
+      traefik_default:
+        aliases:
+          - traefik
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: 51664:51664
+    volumes:
+      - traefik-certificates:/var/lib/traefik
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  traefik-certificates: {}

@@ -1,0 +1,44 @@
+networks:
+  traefik_default:
+    external: true
+
+services:
+  vaultwarden:
+    cap_drop:
+      - ALL
+    env_file: .env
+    environment:
+      DOMAIN: https://vault.zarantonello.net
+      INVITATIONS_ALLOWED: false
+      PASSWORD_HINTS_ALLOWED: false
+      ROCKET_PORT: 3000
+      SENDS_ALLOWED: false
+      SIGNUPS_ALLOWED: false
+      SMTP_FROM: vault@zarantonello.net
+      SMTP_HOST: mail.zarantonello.dev
+      SMTP_PORT: 465
+      SMTP_SECURITY: force_tls
+      TRASH_AUTO_DELETE_DAYS: 60
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test:
+        - CMD
+        - /healthcheck.sh
+      timeout: 5s
+    image: quay.io/vaultwarden/server:1.35.2
+    labels:
+      monitoring.collect: true
+      traefik.enable: true
+      traefik.http.routers.vaultwarden.entrypoints: https
+      traefik.http.routers.vaultwarden.rule: Host(`vault.zarantonello.net`)
+      traefik.http.services.vaultwarden.loadbalancer.server.port: 3000
+    networks:
+      - traefik_default
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: 53382:53382
+    volumes:
+      - $HOME/volumes/vaultwarden:/data

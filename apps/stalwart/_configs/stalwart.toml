@@ -1,0 +1,71 @@
+[server]
+hostname = "mail.zarantonello.dev"
+
+[server.listener.smtp]
+bind = ["[::]:25"]
+protocol = "smtp"
+
+[server.listener.imaps]
+bind = ["[::]:993"]
+protocol = "imap"
+tls.implicit = true
+
+[server.listener.submissions]
+bind = ["[::]:465"]
+protocol = "smtp"
+tls.implicit = true
+
+[server.listener.http]
+bind = ["[::]:80"]
+protocol = "http"
+
+[certificate.default]
+cert = "%{file:/opt/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/mail.zarantonello.dev/mail.zarantonello.dev.crt}%"
+private-key = "%{file:/opt/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/mail.zarantonello.dev/mail.zarantonello.dev.key}%"
+default = true
+
+[storage]
+data = "rocksdb"
+fts = "rocksdb"
+blob = "filesystem"
+lookup = "rocksdb"
+directory = "internal"
+
+[directory.internal]
+type = "internal"
+store = "rocksdb"
+
+[store.filesystem]
+type = "fs"
+path = "/opt/stalwart/blobs"
+
+[store.rocksdb]
+type = "rocksdb"
+path = "/opt/stalwart/data"
+
+[tracer.console]
+ansi = false
+enable = true
+level = "info"
+multiline = false
+type = "console"
+
+[metrics.prometheus]
+enable = true
+
+[config]
+local-keys = [
+    "acme.*",
+    "authentication.fallback-admin.*",
+    "certificate.*",
+    "cluster.*",
+    "config.local-keys.*",
+    "directory.*",
+    "metrics.*",
+    "server.*",
+    "!server.allowed-ip.*",
+    "!server.blocked-ip.*",
+    "storage.*",
+    "store.*",
+    "tracer.*",
+]

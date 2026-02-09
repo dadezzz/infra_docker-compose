@@ -1,0 +1,23 @@
+networks:
+  traefik_default:
+    external: true
+
+services:
+  actual:
+    cap_drop:
+      - ALL
+    image: docker.io/actualbudget/actual-server:latest@sha256:e82b7302b0db7f8fa063159e8bddc07443bb83761798dc9ba84fe1b3df62d74f
+    labels:
+      traefik.enable: true
+      traefik.http.routers.actual.entrypoints: https
+      traefik.http.routers.actual.rule: Host(`actual.zarantonello.net`)
+      traefik.http.services.actual.loadbalancer.server.port: 5006
+    networks:
+      - traefik_default
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    user: 14638:14638
+    volumes:
+      - $HOME/volumes/actual:/data

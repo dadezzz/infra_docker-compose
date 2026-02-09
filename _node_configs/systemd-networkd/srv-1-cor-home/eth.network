@@ -1,0 +1,5 @@
+[Match]
+MACAddress=00:24:21:e7:99:fe
+
+[Network]
+DHCP=ipv4
