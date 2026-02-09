@@ -1,6 +1,6 @@
 configs:
   grafana:
-    file: ./grafana.ini
+    file: ./_configs/grafana.ini
 
 networks:
   alloy_default:

@@ -7,6 +7,9 @@ configs:
 networks:
   alloy_default:
     external: true
+  stalwart_default:
+    enable_ipv6: true
+    name: stalwart_default
   traefik_default:
     external: true
 
@@ -23,6 +26,8 @@ services:
       - source: caddy
         target: /etc/caddy/Caddyfile
     env_file: .env
+    networks:
+      - stalwart_default
     read_only: true
     restart: always
     security_opt:
@@ -57,6 +62,7 @@ services:
       traefik.http.services.stalwart.loadbalancer.server.port: 80
     networks:
       - alloy_default
+      - stalwart_default
       - traefik_default
     ports:
       - 25:25

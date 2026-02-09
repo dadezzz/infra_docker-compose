@@ -36,6 +36,7 @@ caching:
 customDNS:
   mapping:
     actual.zarantonello.net: 100.88.193.108,fd7a:115c:a1e0::6301:c1ac
+    igl.zarantonello.dev: 100.88.193.108,fd7a:115c:a1e0::6301:c1ac
     # grafana.zarantonello.net: 100.117.119.101,fd7a:115c:a1e0::d901:7769
     mail.zarantonello.dev: 100.79.164.85,fd7a:115c:a1e0::ab01:a48a
     photos.zarantonello.net: 100.88.193.108,fd7a:115c:a1e0::6301:c1ac
