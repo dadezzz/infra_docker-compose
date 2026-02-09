@@ -38,7 +38,7 @@ services:
       git.zarantonello.dev: 100.88.193.108
     group_add:
       - 991
-    image: data.forgejo.org/forgejo/runner:12.6.3
+    image: data.forgejo.org/forgejo/runner:12.6.3@sha256:a17c8c46fd69a30024620bf934ab0b791d0f364f02b10771ba2befdeb3c3dea0
     networks:
       - forgejo-runner_default
     read_only: true

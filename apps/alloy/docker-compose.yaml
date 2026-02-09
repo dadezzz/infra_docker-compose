@@ -25,7 +25,7 @@ services:
       - hosts.docker.internal:host-gateway
     group_add:
       - "992"
-    image: docker.io/grafana/alloy:v1.13.0
+    image: docker.io/grafana/alloy:v1.13.0@sha256:6616111d70b3c75d5aa177e0584a523403eaba0eb3b177cb387302c2206d5221
     labels:
       monitoring.collect: true
       monitoring.metrics.port: 12345
@@ -45,7 +45,7 @@ services:
       - ALL
     command:
       - --path.rootfs=/host
-    image: quay.io/prometheus/node-exporter:v1.10.2
+    image: quay.io/prometheus/node-exporter:v1.10.2@sha256:337ff1d356b68d39cef853e8c6345de11ce7556bb34cda8bd205bcf2ed30b565
     labels:
       monitoring.collect: true
       monitoring.metrics.port: 9100

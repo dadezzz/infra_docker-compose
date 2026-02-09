@@ -8,7 +8,7 @@ services:
   machine-learning:
     cap_drop:
       - ALL
-    image: ghcr.io/immich-app/immich-machine-learning:v2.5.5
+    image: ghcr.io/immich-app/immich-machine-learning:v2.5.5@sha256:2e17e15855907ece0d5b3a7bf625b12f6d987a5854fa71d888641acae28b0323
     labels:
       monitoring.collect: true
     read_only: true
@@ -37,7 +37,7 @@ services:
         - CMD
         - pg_isready
       timeout: 5s
-    image: ghcr.io/tensorchord/vchord-postgres:pg18-v1.0.0
+    image: ghcr.io/tensorchord/vchord-postgres:pg18-v1.0.0@sha256:24a51a291b2f7c30214be566a7ad8474ee02de8947482084297d263520a97e16
     read_only: true
     restart: always
     security_opt:
@@ -87,7 +87,7 @@ services:
       DB_USERNAME: ${POSTGRES_USER}
       IMMICH_TELEMETRY_INCLUDE: all
       REDIS_HOSTNAME: redis
-    image: ghcr.io/immich-app/immich-server:v2.5.5
+    image: ghcr.io/immich-app/immich-server:v2.5.5@sha256:161b1ec8af9e0478797cfd75ea857c7e55af271fa7cea103cb30ab1ba5b418d8
     labels:
       monitoring.collect: true
       monitoring.metrics.port: 8081
