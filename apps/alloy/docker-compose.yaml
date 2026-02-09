@@ -15,7 +15,7 @@ services:
       - --server.http.listen-addr=[::]:12345
       - --storage.path=/var/tmp/alloy
       - --server.http.enable-pprof=false
-      - /etc/alloy/alloy.alloy
+      - /etc/alloy/config.alloy
     configs:
       - source: alloy
         target: /etc/alloy/config.alloy
