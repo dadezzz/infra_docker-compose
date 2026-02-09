@@ -1,8 +1,8 @@
 configs:
-  stalwart:
-    file: _configs/stalwart.toml
   caddy:
     file: _configs/Caddyfile
+  stalwart:
+    file: _configs/stalwart.toml
 
 networks:
   alloy_default:
@@ -11,6 +11,28 @@ networks:
     external: true
 
 services:
+  # This only acts as an automatic certificate provider for stalwart.
+  # Since stalwart's acme requires the config file to be writable :(.
+  caddy:
+    build: .
+    cap_add:
+      - NET_BIND_SERVICE
+    cap_drop:
+      - ALL
+    configs:
+      - source: caddy
+        target: /etc/caddy/Caddyfile
+    env_file: .env
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /config:uid=54815,gid=54815
+    user: 54815:54815
+    volumes:
+      - stalwart-caddy-data:/data
+
   stalwart:
     cap_add:
       - NET_BIND_SERVICE
@@ -20,14 +42,10 @@ services:
       - source: stalwart
         target: /opt/stalwart/etc/config.toml
     image: docker.io/stalwartlabs/stalwart:v0.15.3-alpine@sha256:da618c6d20326f78b6ea619e9f98a722c4d710f89360fbc5beaba8829cad5064
-    ports:
-      - 25:25
-      - 465:465
-      - 993:993
     labels:
       monitoring.collect: true
-      monitoring.metrics.port: 80
       monitoring.metrics.path: /metrics/prometheus
+      monitoring.metrics.port: 80
       traefik.enable: true
       traefik.http.routers.stalwart-public.entrypoints: cloudflared
       traefik.http.routers.stalwart-public.rule: (Host(`mta-sts.zarantonello.dev`) || Host(`mta-sts.zarantonello.net`)) && Path(`/.well-known/mta-sts.txt`)
@@ -40,6 +58,10 @@ services:
     networks:
       - alloy_default
       - traefik_default
+    ports:
+      - 25:25
+      - 465:465
+      - 993:993
     read_only: true
     restart: always
     security_opt:
@@ -50,28 +72,6 @@ services:
     volumes:
       - $HOME/volumes/stalwart:/opt/stalwart
       - stalwart-caddy-data:/opt/caddy:ro
-
-  # This only acts as an automatic certificate provider for stalwart.
-  # Since stalwart's acme requires the config file to be writable :(.
-  caddy:
-    build: .
-    cap_add:
-      - NET_BIND_SERVICE
-    cap_drop:
-      - ALL
-    env_file: .env
-    configs:
-      - source: caddy
-        target: /etc/caddy/Caddyfile
-    read_only: true
-    restart: always
-    security_opt:
-      - no-new-privileges:true
-    tmpfs:
-      - /config:uid=54815,gid=54815
-    user: 54815:54815
-    volumes:
-      - stalwart-caddy-data:/data
 
 volumes:
   stalwart-caddy-data: {}

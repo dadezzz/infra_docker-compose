@@ -41,11 +41,11 @@ networks:
 services:
   garage-0:
     build: .
+    cap_drop:
+      - ALL
     configs:
       - source: garage-0
         target: /etc/garage.toml
-    cap_drop:
-      - ALL
     env_file: .env
     healthcheck:
       interval: 60s
