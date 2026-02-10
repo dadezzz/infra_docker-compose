@@ -59,7 +59,6 @@ services:
         - http://localhost:3903/health
       timeout: 5s
     labels:
-      monitoring.collect: true
       monitoring.metrics.port: 3903
       traefik.enable: true
       traefik.http.routers.garage-s3.entrypoints: http,https

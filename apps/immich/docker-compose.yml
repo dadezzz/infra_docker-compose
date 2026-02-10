@@ -9,8 +9,6 @@ services:
     cap_drop:
       - ALL
     image: ghcr.io/immich-app/immich-machine-learning:v2.5.5@sha256:2e17e15855907ece0d5b3a7bf625b12f6d987a5854fa71d888641acae28b0323
-    labels:
-      monitoring.collect: true
     read_only: true
     restart: always
     security_opt:
@@ -91,7 +89,6 @@ services:
       REDIS_HOSTNAME: redis
     image: ghcr.io/immich-app/immich-server:v2.5.5@sha256:161b1ec8af9e0478797cfd75ea857c7e55af271fa7cea103cb30ab1ba5b418d8
     labels:
-      monitoring.collect: true
       monitoring.metrics.port: 8081
       traefik.enable: true
       # The app connects via http, it's less resource intensive and encryption

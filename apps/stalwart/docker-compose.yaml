@@ -48,7 +48,7 @@ services:
         target: /opt/stalwart/etc/config.toml
     image: docker.io/stalwartlabs/stalwart:v0.15.4-alpine@sha256:a99c020d6059584101908e027e7505eef87758eb9b21f7c7c1211f0b43c1276e
     labels:
-      monitoring.collect: true
+      monitoring.logs: true
       monitoring.metrics.path: /metrics/prometheus
       monitoring.metrics.port: 80
       traefik.enable: true

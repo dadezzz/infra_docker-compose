@@ -13,23 +13,11 @@ discovery.relabel "docker_targets" {
     targets = discovery.docker.docker_targets.targets
 
     rule {
-        action = "keep"
-        regex = "true"
-        source_labels = ["__meta_docker_container_label_monitoring_collect"]
-    }
-
-    rule {
         action = "replace"
         regex = "(.*);(.*)"
-        replacement = "$1.$2"
+        replacement = "docker-compose.$1.$2"
         source_labels = ["__meta_docker_container_label_com_docker_compose_project", "__meta_docker_container_label_com_docker_compose_service"]
-        target_label = "project"
-    }
-
-    rule {
-        action = "replace"
-        replacement = sys.env("NODE_HOSTNAME")
-        target_label = "instance"
+        target_label = "job"
     }
 }
 
@@ -49,11 +37,30 @@ discovery.relabel "docker_metrics" {
         source_labels = ["__address__", "__meta_docker_container_label_monitoring_metrics_port"]
         target_label = "__address__"
     }
+
+    // Use custom metrics path if provided.
+    rule {
+        action = "replace"
+        regex = "(.+)"
+        replacement = "$1"
+        source_labels = ["__meta_docker_container_label_monitoring_metrics_path"]
+        target_label = "__metrics_path__"
+    }
+}
+
+discovery.relabel "docker_logs" {
+    targets = discovery.relabel.docker_targets.output
+
+    rule {
+        action = "drop"
+        regex = ""
+        source_labels = ["__meta_docker_container_label_monitoring_logs"]
+    }
 }
 
 loki.source.docker "docker_logs" {
     host = "unix:///var/run/docker.sock"
-    targets = discovery.relabel.docker_targets.output
+    targets = discovery.relabel.docker_logs.output
     forward_to = [loki.relabel.victorialogs.receiver]
 }
 
