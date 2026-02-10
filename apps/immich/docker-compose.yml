@@ -50,6 +50,8 @@ services:
     user: 999:999
     volumes:
       - $HOME/volumes/immich/postgres:/var/lib/postgresql
+    # Sets correct workdir when exec-ing to create backup dumps.
+    working_dir: /var/lib/postgresql
 
   redis:
     cap_drop:
