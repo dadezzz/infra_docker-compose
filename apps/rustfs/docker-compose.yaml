@@ -10,7 +10,7 @@ services:
       - ALL
     environment:
       RUSTFS_VOLUMES: /data/sda,/data/sdb,/data/sdc,/data/sdd
-    image: docker.io/rustfs/rustfs:1.0.0-alpha.82
+    image: docker.io/rustfs/rustfs:1.0.0-alpha.82@sha256:eadee1b524ec05cbc1fe08426a95e589bc70e70cd15a4591edf176cabde238a6
     labels:
       traefik.enable: true
       traefik.http.routers.rustfs-console.entrypoints: http,https
