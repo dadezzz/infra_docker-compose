@@ -21,6 +21,3 @@ runner:
   capacity: 1
   fetch_interval: 10s
   file: /data/registration
-  # Jobs shouldn't run longer than 10 minutes at most, so this is a pretty safe
-  # margin.
-  shutdown_timeout: 30m

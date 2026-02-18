@@ -95,7 +95,6 @@ services:
       # is provided by tailscale anyway.
       traefik.http.routers.immich.entrypoints: https,http
       traefik.http.routers.immich.rule: Host(`photos.zarantonello.net`)
-      traefik.http.routers.immich.service: immich
       traefik.http.services.immich.loadbalancer.server.port: 2283
     networks:
       - alloy_default

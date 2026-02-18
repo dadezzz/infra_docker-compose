@@ -1,6 +1,4 @@
 networks:
-  alloy_default:
-    external: true
   traefik_default:
     external: true
 
@@ -9,8 +7,9 @@ services:
     cap_drop:
       - ALL
     environment:
-      RUSTFS_VOLUMES: /data/sda,/data/sdb,/data/sdc,/data/sdd
-    image: docker.io/rustfs/rustfs:1.0.0-alpha.82@sha256:eadee1b524ec05cbc1fe08426a95e589bc70e70cd15a4591edf176cabde238a6
+      RUSTFS_CONSOLE_ENABLE: true
+      RUSTFS_VOLUMES: /data/{0...3}
+    image: docker.io/rustfs/rustfs:v1.0.2
     labels:
       traefik.enable: true
       traefik.http.routers.rustfs-console.entrypoints: http,https
@@ -23,7 +22,6 @@ services:
       traefik.http.services.rustfs.loadbalancer.server.port: 9000
     networks:
       - traefik_default
-      - alloy_default
     read_only: true
     restart: always
     security_opt:
@@ -31,4 +29,3 @@ services:
     user: 30847:30847
     volumes:
       - $HOME/volumes/rustfs:/data
-      - $HOME/volumes/rustfs-logs:/logs
