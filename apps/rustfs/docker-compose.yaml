@@ -9,7 +9,7 @@ services:
     environment:
       RUSTFS_CONSOLE_ENABLE: true
       RUSTFS_VOLUMES: /data/{0...3}
-    image: docker.io/rustfs/rustfs:v1.0.2
+    image: git.zarantonello.dev/infra/rustfs:v1.0.2
     labels:
       traefik.enable: true
       traefik.http.routers.rustfs-console.entrypoints: http,https
