@@ -1,0 +1,29 @@
+networks:
+  traefik_default:
+    external: true
+
+services:
+  transmission:
+    cap_drop:
+      - ALL
+    image: git.zarantonello.dev/infra/transmission:v1.2.0
+    labels:
+      traefik.enable: true
+      traefik.http.routers.transmission.entrypoints: https
+      traefik.http.routers.transmission.rule: Host(`torrents.zarantonello.net`)
+      traefik.http.services.transmission.loadbalancer.server.port: 9091
+    networks:
+      - traefik_default
+    ports:
+      - 51413:51413/tcp
+      - 51413:51413/udp
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:uid=27732,gid=27732
+    user: 27732:27732
+    volumes:
+      - $HOME/volumes/transmission/config:/.config/transmission-daemon
+      - $HOME/volumes/transmission/data:/data
