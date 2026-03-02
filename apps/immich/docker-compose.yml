@@ -35,7 +35,7 @@ services:
         - CMD
         - pg_isready
       timeout: 5s
-    image: ghcr.io/tensorchord/vchord-postgres:pg18-v1.0.0@sha256:24a51a291b2f7c30214be566a7ad8474ee02de8947482084297d263520a97e16
+    image: ghcr.io/tensorchord/vchord-postgres:pg18-v1.1.1@sha256:700ff05ebdc7e4afd4dd8442e0684293046c3833677fec326550000a04cf8a91
     read_only: true
     restart: always
     security_opt:
