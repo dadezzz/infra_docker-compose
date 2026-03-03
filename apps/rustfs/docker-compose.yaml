@@ -9,7 +9,7 @@ services:
     environment:
       RUSTFS_CONSOLE_ENABLE: true
       RUSTFS_VOLUMES: /data/{0...3}
-    image: git.zarantonello.dev/infra/rustfs:v1.1.1@sha256:d9291537e95a9c91518ce6fbed587b1beb0c6e7b5d1b0aa39256b207da2b4c9d
+    image: git.zarantonello.dev/infra/rustfs:v1.1.2@sha256:913a450940ce70f65d4a95c25f101f4482927a8ddfe1ec897b7975d1ab5fc2b0
     labels:
       traefik.enable: true
       traefik.http.routers.rustfs-console.entrypoints: http,https
