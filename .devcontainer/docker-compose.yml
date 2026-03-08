@@ -3,6 +3,6 @@ services:
     environment:
       # Tell sops where to find the secret key for age decryption.
       SOPS_AGE_KEY_FILE: /workspace/.sops.key
-    image: git.zarantonello.dev/infra/ci:v2.3.42@sha256:ab0bc57a5d73223261cf3275d32da0c5f547692cd13e1e6a2dc7cd4b28e2f6ec
+    image: git.zarantonello.dev/infra/ci:v2.3.43@sha256:ad99e06bb6945dac7d744f1beda52ca7b55bcaf4515cf4b7ec7ea6e7bfebc5b2
     volumes:
       - ..:/workspace:cached
