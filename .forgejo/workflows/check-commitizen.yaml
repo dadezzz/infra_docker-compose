@@ -5,7 +5,7 @@ concurrency:
 jobs:
   check-commitizen:
     container:
-      image: git.zarantonello.dev/infra/ci:v2.3.45@sha256:0813a251066f8682e2da6f483c1f4bc2a892516abfdde5f4a65b11d4df8a7ae3
+      image: git.zarantonello.dev/infra/ci:v2.3.46@sha256:5147c206255149ee364bfd471e8e6d51e95d30307f13e0924a496c54dbe006dc
     runs-on: srv-generic
     steps:
       - run: cz check --message '${{ forge.event.pull_request.title }}'
