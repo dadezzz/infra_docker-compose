@@ -6,7 +6,7 @@ services:
   transmission:
     cap_drop:
       - ALL
-    image: git.zarantonello.dev/infra/transmission:v1.3.0@sha256:cf5f92e85f67c19ea60e9bfb4e60827841fc06a0f898844f51fc85f07fa15dba
+    image: git.zarantonello.dev/infra/transmission:v1.3.1@sha256:7681d1a5ca7032639bf0197280b21828400e3b36eae73a03e3245769ed1e6fdc
     labels:
       traefik.enable: true
       traefik.http.routers.transmission.entrypoints: https
