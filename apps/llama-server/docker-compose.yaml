@@ -1,0 +1,23 @@
+networks:
+  traefik_default:
+    external: true
+
+services:
+  llama:
+    command: -b 512 -ub 256 -np 1 --models-preset /models/config.ini --models-max 1
+    devices:
+      - /dev/dri
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan
+    labels:
+      traefik.enable: true
+      traefik.http.routers.llama.entrypoints: http,https
+      traefik.http.routers.llama.rule: Host(`llama.zarantonello.dev`)
+      traefik.http.services.llama.loadbalancer.server.port: 8080
+    networks:
+      - traefik_default
+    read_only: true
+    restart: always
+    user: 2934:2934
+    volumes:
+      - $HOME/volumes/llama-server/models:/models
+      - $HOME/volumes/llama-server/cache:/.cache
