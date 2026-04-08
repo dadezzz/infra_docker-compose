@@ -11,4 +11,4 @@ services:
     user: 1000:1000
     volumes:
       - $HOME/.local/share/llama-server/models:/models
-      - $HOME/.cache/llama-server:/.cache
+      - $HOME/.cache/llama-server:/home/ubuntu/.cache
