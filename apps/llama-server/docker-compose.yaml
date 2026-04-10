@@ -1,6 +1,8 @@
 services:
   llama:
-    command: -b 1024 -ub 256 -np 1 --models-preset /models/config.ini --models-max 1
+    command: |
+      -b 1024 -ub 256
+      --models-preset /models/config.ini --models-max 1
     devices:
       - /dev/dri
     image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:9532e967519cf3bcf15bd6f8c3d8af2c55c7363c04ac56ab3ddd952748259c03
