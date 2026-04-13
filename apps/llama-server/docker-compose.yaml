@@ -1,7 +1,7 @@
 services:
   llama:
     command: |
-      -b 1024 -ub 256
+      -b 1024 -ub 256 --no-warmup
       --models-preset /models/config.ini --models-max 1
     devices:
       - /dev/dri
