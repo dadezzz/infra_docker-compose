@@ -6,7 +6,7 @@ services:
       - java
       - -jar
       - fabric.jar
-    image: docker.io/library/eclipse-temurin:26-jre@sha256:1f04d2cda22e1aa638627365d083eb287659397a8ff43c1df288c33b0b594937
+    image: docker.io/library/eclipse-temurin:26-jre@sha256:77c7aeee96505ff61dda2d7c98faf91e72a3dc9ea9adb1c6be731a74c33aaf51
     labels:
       monitoring.logs: true
     ports:
