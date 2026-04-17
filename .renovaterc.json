@@ -8,5 +8,8 @@
       "matchFileNames": [".devcontainer/**", ".forgejo/**"],
       "matchUpdateTypes": ["digest", "minor", "patch", "pin"]
     }
-  ]
+  ],
+  // Raise limit or there are situations where we can't keep up with the number
+  // of deps to update.
+  "prHourlyLimit": 4
 }
