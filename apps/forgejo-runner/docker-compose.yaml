@@ -7,19 +7,7 @@ networks:
     name: forgejo-runner_default
 
 services:
-  runner-daemon:
-    depends_on:
-      runner-registration:
-        condition: service_completed_successfully
-    entrypoint:
-      - forgejo-runner
-      - daemon
-      - --config=/etc/runner/config.yaml
-    extends:
-      service: runner-registration
-    restart: always
-
-  runner-registration:
+  runner:
     cap_drop:
       - ALL
     configs:
@@ -27,24 +15,24 @@ services:
         target: /etc/runner/config.yaml
     entrypoint:
       - forgejo-runner
-      - register
-      - --no-interactive
+      - daemon
+      - --url=https://git.zarantonello.dev
+      - --uuid=${RUNNER_UUID}
+      - --token-url=file:///data/token
+      - --label=${NODE_NAME}:docker://busybox
+      - --label=srv-${NODE_TYPE}:docker://busybox
+      - --label=srv-generic:docker://busybox
       - --config=/etc/runner/config.yaml
-      - --labels=${NODE_NAME}:docker://busybox,srv-${NODE_TYPE}:docker://busybox,srv-generic:docker://busybox
-      - --instance=https://git.zarantonello.dev
-      - --token=${REGISTRATION_TOKEN}
     env_file: .env
     extra_hosts:
       git.zarantonello.dev: 100.79.164.85
     group_add:
       - 991
-    image: data.forgejo.org/forgejo/runner:12.7.3@sha256:48b0539854bfc769fbf629725e089e35cfa1227ddedc7e45436b83bb9502ae27
+    image: data.forgejo.org/forgejo/runner:12.8.2@sha256:afeaf4c2bd52d9cc2c42090ce559c1f4b7061ded7afd7023c089a5b3b7109025
     networks:
       - forgejo-runner_default
     read_only: true
-    restart: on-failure
-    security_opt:
-      - no-new-privileges:true
+    restart: always
     tmpfs:
       - /tmp:uid=4880,gid=4880
     user: 4880:4880

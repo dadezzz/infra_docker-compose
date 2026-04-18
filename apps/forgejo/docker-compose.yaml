@@ -15,7 +15,6 @@ services:
       FORGEJO__cache__HOST: "{ \"size\": 100, \"recent_ratio\": 0.25, \"ghost_ratio\": 0.5 }"
 
       FORGEJO__database__DB_TYPE: sqlite3
-      FORGEJO__database__SQLITE_JOURNAL_MODE: WAL
 
       FORGEJO__mailer__ENABLED: true
       FORGEJO__mailer__FROM: Forgejo <git@zarantonello.dev>

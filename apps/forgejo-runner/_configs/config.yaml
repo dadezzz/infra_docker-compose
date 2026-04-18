@@ -20,4 +20,3 @@ log:
 runner:
   capacity: 1
   fetch_interval: 10s
-  file: /data/registration
