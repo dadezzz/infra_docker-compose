@@ -1,8 +1,6 @@
 configs:
-  caddy:
-    file: _configs/Caddyfile
   stalwart:
-    file: _configs/stalwart.toml
+    file: _configs/config.json
 
 networks:
   alloy_default:
@@ -14,30 +12,6 @@ networks:
     external: true
 
 services:
-  # This only acts as an automatic certificate provider for stalwart.
-  # Since stalwart's acme requires the config file to be writable :(.
-  caddy:
-    build: .
-    cap_add:
-      - NET_BIND_SERVICE
-    cap_drop:
-      - ALL
-    configs:
-      - source: caddy
-        target: /etc/caddy/Caddyfile
-    env_file: .env
-    networks:
-      - stalwart_default
-    read_only: true
-    restart: always
-    security_opt:
-      - no-new-privileges:true
-    tmpfs:
-      - /config:uid=54815,gid=54815
-    user: 54815:54815
-    volumes:
-      - stalwart-caddy-data:/data
-
   stalwart:
     cap_add:
       - NET_BIND_SERVICE
@@ -45,8 +19,10 @@ services:
       - ALL
     configs:
       - source: stalwart
-        target: /opt/stalwart/etc/config.toml
-    image: docker.io/stalwartlabs/stalwart:v0.15.5-alpine@sha256:0620ceba9165c104789d5cacb0aa209e7f16295f54edead631b1925b1ccc1ccf
+        target: /etc/stalwart/config.json
+    healthcheck:
+      disable: true
+    image: docker.io/stalwartlabs/stalwart:v0.16.0-alpine@sha256:1e6acf43a3cf56eb9121e60fdbc95da81c86b1488357c88fa2b74f7e8b461d0f
     labels:
       monitoring.logs: true
       monitoring.metrics.path: /metrics/prometheus
@@ -76,8 +52,4 @@ services:
       - /tmp:uid=54815,gid=54815
     user: 54815:54815
     volumes:
-      - $HOME/volumes/stalwart:/opt/stalwart
-      - stalwart-caddy-data:/opt/caddy:ro
-
-volumes:
-  stalwart-caddy-data: {}
+      - $HOME/volumes/stalwart:/var/lib/stalwart
