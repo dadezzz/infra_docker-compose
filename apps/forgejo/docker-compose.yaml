@@ -63,7 +63,7 @@ services:
     labels:
       monitoring.logs: true
       traefik.enable: true
-      traefik.http.routers.forgejo.entrypoints: cloudflared,https,http
+      traefik.http.routers.forgejo.entrypoints: cloudflare,https,http
       traefik.http.routers.forgejo.rule: Host(`git.zarantonello.dev`)
       traefik.http.services.forgejo.loadbalancer.server.port: 3000
     networks:

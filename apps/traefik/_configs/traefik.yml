@@ -5,11 +5,23 @@ certificatesResolvers:
         provider: cloudflare
       storage: /var/lib/traefik/certificates/acme.json
 entryPoints:
-  cloudflared:
-    address: :8081
-    forwardedHeaders:
-      trustedIPs:
-        - 172.16.0.0/12
+  cloudflare:
+    address: :1443
+    http:
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: zarantonello.dev
+            sans:
+              - "*.zarantonello.dev"
+          - main: zarantonello.net
+            sans:
+              - "*.zarantonello.net"
+    http3:
+      advertisedPort: 443
+    transport:
+      respondingTimeouts:
+        readTimeout: 0
   http:
     address: :8080
     transport:
@@ -46,7 +58,6 @@ metrics:
     headerLabels:
       cfcountry: CF-IPCountry
       useragent: User-Agent
-ping: {}
 providers:
   docker:
     exposedByDefault: false

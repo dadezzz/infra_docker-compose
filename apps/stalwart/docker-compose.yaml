@@ -28,7 +28,7 @@ services:
       monitoring.metrics.path: /metrics/prometheus
       monitoring.metrics.port: 80
       traefik.enable: true
-      traefik.http.routers.stalwart-public.entrypoints: cloudflared
+      traefik.http.routers.stalwart-public.entrypoints: cloudflare
       traefik.http.routers.stalwart-public.rule: (Host(`mta-sts.zarantonello.dev`) || Host(`mta-sts.zarantonello.net`)) && Path(`/.well-known/mta-sts.txt`)
       traefik.http.routers.stalwart-public.service: stalwart-public
       traefik.http.routers.stalwart.entrypoints: https
