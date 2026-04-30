@@ -2,7 +2,7 @@ services:
   llama:
     command: |
       -b 1024 -ub 256
-      --flash-attn
+      --flash-attn on
       --no-warmup
       --models-max 1
       --models-preset /models/config.ini
