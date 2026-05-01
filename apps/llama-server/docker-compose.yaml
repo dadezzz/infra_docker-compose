@@ -8,7 +8,7 @@ services:
       --models-preset /models/config.ini
     devices:
       - /dev/dri
-    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:e4870dc306315f060fdd0476e060921255df4e0c20be081e80997678e4adf7d9
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:dd59471693f02b5a701f93397dd459ce50430f36791470d261baba18be642756
     ports:
       - 127.0.0.1:8080:8080
     read_only: true
