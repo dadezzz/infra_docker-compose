@@ -1,0 +1,19 @@
+services:
+  whisper:
+    command: |
+      --host 0.0.0.0
+      --port 8079
+      -pp
+      --model /models/ggml-large-v3-turbo.bin
+    devices:
+      - /dev/dri
+    entrypoint: whisper-server
+    image: ghcr.io/ggml-org/whisper.cpp:main-vulkan
+    ports:
+      - 127.0.0.1:8079:8079
+    read_only: true
+    restart: always
+    user: 1000:1000
+    volumes:
+      - $HOME/.local/share/whisper-server/models:/models:ro
+      - $HOME/.cache/whisper-server:/home/ubuntu/.cache
