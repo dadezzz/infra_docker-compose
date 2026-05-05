@@ -1,0 +1,62 @@
+networks:
+  traefik_default:
+    external: true
+
+services:
+  postgres:
+    cap_drop:
+      - ALL
+    env_file: .env
+    environment:
+      # Configures the user used for healthchecking.
+      PGUSER: ${POSTGRES_USER}
+    healthcheck:
+      interval: 60s
+      retries: 5
+      test:
+        - CMD
+        - pg_isready
+      timeout: 5s
+    image: docker.io/library/postgres:18.3@sha256:78481659c47e862334611ccdaf7c369c986b3046da9857112f3b309114a65fb4
+    read_only: true
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:uid=70,gid=70
+      - /var/run/postgresql:uid=70,gid=70
+    # User has to be 70, otherwise the container tries to chown the postgres
+    # volume but fails due to insufficient permissions.
+    user: 70:70
+    volumes:
+      - $HOME/volumes/umami/postgres:/var/lib/postgresql
+    # Sets correct workdir when exec-ing to create backup dumps.
+    working_dir: /var/lib/postgresql
+
+  umami:
+    cap_drop:
+      - ALL
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      CLIENT_IP_HEADER: cf-connecting-ip
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DATABASE}
+      DISABLE_UPDATES: 1
+    image: ghcr.io/umami-software/umami:3.1.0
+    labels:
+      traefik.enable: true
+      traefik.http.routers.umami-public.entrypoints: cloudflare
+      traefik.http.routers.umami-public.rule: Host(`metrics.zarantonello.dev`) && (Path(`/api/send`) || Path(`/script.js`))
+      traefik.http.routers.umami-public.service: umami-public
+      traefik.http.routers.umami.entrypoints: https
+      traefik.http.routers.umami.rule: Host(`metrics.zarantonello.dev`)
+      traefik.http.routers.umami.service: umami
+      traefik.http.services.umami-public.loadbalancer.server.port: 3000
+      traefik.http.services.umami.loadbalancer.server.port: 3000
+    networks:
+      - default
+      - traefik_default
+    restart: always
+    security_opt:
+      - no-new-privileges:true
