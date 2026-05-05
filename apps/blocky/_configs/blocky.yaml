@@ -5,7 +5,6 @@ blocking:
       - https://badblock.celenity.dev/wildcards-star/push_whitelist.txt
       - |
         stats.grafana.org
-        docker.umami.is
   blockType: nxDomain
   clientGroupsBlock:
     default:
