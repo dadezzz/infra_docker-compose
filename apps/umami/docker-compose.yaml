@@ -43,7 +43,7 @@ services:
       CLIENT_IP_HEADER: cf-connecting-ip
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DATABASE}
       DISABLE_UPDATES: 1
-    image: ghcr.io/umami-software/umami:3.1.0
+    image: ghcr.io/umami-software/umami:3.1.0@sha256:e3f80c0625aad7179b49da27d475357cabb1068b8cacd9a792cfd6966888b123
     labels:
       traefik.enable: true
       traefik.http.routers.umami-public.entrypoints: cloudflare
