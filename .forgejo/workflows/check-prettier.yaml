@@ -5,7 +5,7 @@ concurrency:
 jobs:
   check-prettier:
     container:
-      image: git.zarantonello.dev/infra/ci:v2.4.2@sha256:d66b9907a60b456918bb2a841bd20d65dad470746ee5e69241e1ba7f28662a5b
+      image: git.zarantonello.dev/infra/ci:v2.4.3@sha256:b4d24ade8a162d95b9afd0ae2cce1ddee9fb7d8ea7083bb2ea83b92fe1fe821a
     runs-on: srv-generic
     steps:
       - uses: https://data.forgejo.org/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
