@@ -15,5 +15,5 @@ services:
     restart: always
     user: 1000:1000
     volumes:
-      - $HOME/.local/share/llama-server/models:/models
-      - $HOME/.cache/llama-server:/home/ubuntu/.cache
+      - $HOME/.local/share/llama-server/models:/models:z,ro
+      - $HOME/.cache/llama-server:/home/ubuntu/.cache:z,U

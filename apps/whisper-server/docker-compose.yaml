@@ -15,5 +15,5 @@ services:
     restart: always
     user: 1000:1000
     volumes:
-      - $HOME/.local/share/whisper-server/models:/models:ro
-      - $HOME/.cache/whisper-server:/home/ubuntu/.cache
+      - $HOME/.local/share/whisper-server/models:/models:z,ro
+      - $HOME/.cache/whisper-server:/home/ubuntu/.cache:z,U
