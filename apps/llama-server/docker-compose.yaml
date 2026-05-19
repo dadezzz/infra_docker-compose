@@ -2,18 +2,17 @@ services:
   llama:
     command: |
       -b 1024 -ub 256
-      --flash-attn on
-      --no-warmup
       --models-max 1
-      --models-preset /models/config.ini
+      --models-preset /etc/llama-server/models.ini
     devices:
       - /dev/dri
-    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:dc62f5f9183be478e1164bd343b677c623be1f6f5f98d4f3e75e1935e2214569
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan-b9209@sha256:8944f2119c0a74eaed358560b602561714b9a5108ed6ca3a8a7ec3f9819d47a6
     ports:
       - 127.0.0.1:8080:8080
     read_only: true
     restart: always
     user: 1000:1000
     volumes:
-      - $HOME/.local/share/llama-server/models:/models:z,ro
+      - ./_configs/models.ini:/etc/llama-server/models.ini:z,ro
+      - $HOME/.local/share/llama-server:/var/lib/llama-server:z,ro
       - $HOME/.cache/llama-server:/home/ubuntu/.cache:z,U

@@ -1,8 +1,9 @@
 services:
-  devcontainer:
-    environment:
-      # Tell sops where to find the secret key for age decryption.
-      SOPS_AGE_KEY_FILE: /workspace/.sops.key
+  workspace:
+    entrypoint:
+      - sleep
+      - infinity
     image: git.zarantonello.dev/infra/ci:v3.0.0@sha256:9e43bbcef4682d2976e0f379a521bb51729bf02667b6c2fd5a56fb16fbd09462
     volumes:
       - ..:/workspace:cached
+    working_dir: /workspace
