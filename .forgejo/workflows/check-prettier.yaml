@@ -6,10 +6,15 @@ jobs:
   check-prettier:
     container:
       image: git.zarantonello.dev/infra/ci:v3.0.0@sha256:9e43bbcef4682d2976e0f379a521bb51729bf02667b6c2fd5a56fb16fbd09462
+    name: Check files formatting
     runs-on: srv-generic
     steps:
-      - uses: https://data.forgejo.org/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - run: prettier --check .
+      - name: Clone the repository
+        uses: https://data.forgejo.org/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Run prettier
+        run: prettier --check .
+
+name: check-prettier.yaml
 
 "on":
   pull_request:
