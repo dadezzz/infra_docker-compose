@@ -8,6 +8,8 @@ services:
       - ALL
     env_file: .env
     environment:
+      FORGEJO__admin__SEND_NOTIFICATION_EMAIL_ON_NEW_USER: true
+
       FORGEJO__api__ENABLE_SWAGGER: false
 
       FORGEJO__cache__ADAPTER: twoqueue
