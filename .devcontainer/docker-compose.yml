@@ -3,7 +3,7 @@ services:
     entrypoint:
       - sleep
       - infinity
-    image: git.zarantonello.dev/infra/ci:v3.0.3@sha256:2e111f4f4ae2bad4267f35181713c707c3636b22b74da2808380f7d8928b100e
+    image: git.zarantonello.dev/infra/ci:v3.0.4@sha256:8782bc8c051eb919897ac94199e68f6daa0721082f46ca16ecb0514aa4c53af9
     volumes:
       - ..:/workspace:cached
     working_dir: /workspace
