@@ -10,7 +10,9 @@ jobs:
     runs-on: srv-generic
     steps:
       - name: Clone the repository
-        uses: https://data.forgejo.org/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        run: |
+          git clone --filter=blob:none --no-checkout https://${{ forge.token }}@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
+          git checkout --quiet ${{ forge.sha }};
       - name: Run prettier
         run: prettier --check .
 
