@@ -16,6 +16,13 @@ services:
       # prettier-ignore
       FORGEJO__cache__HOST: "{ \"size\": 100, \"recent_ratio\": 0.25, \"ghost_ratio\": 0.5 }"
 
+      # We have a lot of floating tags (latest, ci) that need to be present even
+      # after a new version has been pushed and renovate hasn't updated the
+      # reference digest yet.
+      FORGEJO__cron_0x2e_cleanup_packages__ENABLED: true
+      FORGEJO__cron_0x2e_cleanup_packages__OLDER_THAN: 72h
+      FORGEJO__cron_0x2e_update_checker__ENABLED: false
+
       FORGEJO__database__DB_TYPE: sqlite3
 
       FORGEJO__mailer__ENABLED: true
