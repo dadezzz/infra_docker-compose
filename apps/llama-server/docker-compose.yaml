@@ -1,9 +1,19 @@
 services:
   llama:
     command: |
-      -b 1024 -ub 256
-      --models-max 1
-      --models-preset /etc/llama-server/models.ini
+      -fit off
+      -b 1024 -ub 128
+      --ctx-size 65536
+      -ctk q5_1 -ctv q5_1
+      --model /var/lib/llama-server/Qwen3.6-35B-A3B-MTP-UD-IQ4_XS.gguf
+      --spec-type draft-mtp,ngram-mod
+      --min-p 0
+      --temperature 0.6
+      --top-k 20
+      --top-p 0.95
+      --presence-penalty 0.5
+      --chat-template-kwargs '{"preserve_thinking":true}'
+      --jinja
     devices:
       - /dev/dri
     image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:30fa528c5bdea9ba7bd6307514bb1010a90dff3ed1f4c819bdceb2b107f36d78
@@ -13,6 +23,5 @@ services:
     restart: always
     user: 1000:1000
     volumes:
-      - ./_configs/models.ini:/etc/llama-server/models.ini:z,ro
       - $HOME/.local/share/llama-server:/var/lib/llama-server:z,ro
       - $HOME/.cache/llama-server:/home/ubuntu/.cache:z,U
