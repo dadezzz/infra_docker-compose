@@ -6,7 +6,7 @@ services:
       --models-preset /etc/llama-server/models.ini
     devices:
       - /dev/dri
-    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:855aad43bc0cdb315307b8fbe6dec04f1cff6fb1a14e72de82bc52b5463636a0
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:30fa528c5bdea9ba7bd6307514bb1010a90dff3ed1f4c819bdceb2b107f36d78
     ports:
       - 127.0.0.1:8080:8080
     read_only: true
