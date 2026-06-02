@@ -16,7 +16,7 @@ services:
       --jinja
     devices:
       - /dev/dri
-    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:08cb562cfdcc7afbd4f4ba3b25dae91341b06e881c0745917a9c6cb282656190
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:62aa00b5464c3d4834c8471d00f2839db3d8c970e207a1763b7b4f46b2a7af75
     ports:
       - 127.0.0.1:8080:8080
     read_only: true
