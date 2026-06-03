@@ -5,15 +5,15 @@ services:
       -b 1024 -ub 128
       --ctx-size 65536
       -ctk q5_1 -ctv q5_1
-      --model /var/lib/llama-server/Qwen3.6-35B-A3B-MTP-UD-IQ4_XS.gguf
+      --model /var/lib/llama-server/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
+      --jinja
+      --chat-template-kwargs '{"preserve_thinking":true}'
       --spec-type draft-mtp,ngram-mod
-      --min-p 0
       --temperature 0.6
       --top-k 20
       --top-p 0.95
-      --presence-penalty 0.5
-      --chat-template-kwargs '{"preserve_thinking":true}'
-      --jinja
+      --min-p 0
+      --presence-penalty 0.0
     devices:
       - /dev/dri
     image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:f95cc1f19ec63e0761f2128215d7d306f671e80cc3dd52cbe340c66cb4485c25
