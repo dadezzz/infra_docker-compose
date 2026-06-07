@@ -16,7 +16,7 @@ services:
       --presence-penalty 0.0
     devices:
       - /dev/dri
-    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:11050e52c208e9fd1901ceb4d710ce7cb6c4bec9b3c40d6fb533b4391bbd2708
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:43559c7ce0b6475bb2fa88d4e5bd42b2350d9e3cf459de7de04e8abf687713b4
     ports:
       - 127.0.0.1:8080:8080
     read_only: true
