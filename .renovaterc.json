@@ -5,6 +5,8 @@
   "packageRules": [
     {
       "automerge": true,
+      "groupName": "CI dependencies",
+      "groupSlug": "ci",
       "matchFileNames": [".devcontainer/**", ".forgejo/**"],
       "matchUpdateTypes": ["!major"]
     }
