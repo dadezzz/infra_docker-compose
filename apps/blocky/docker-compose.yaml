@@ -15,14 +15,11 @@ services:
     configs:
       - source: blocky
         target: /app/config.yml
+    extends:
+      file: _patches/${HOSTNAME}.yaml
+      service: blocky
     healthcheck:
-      interval: 60s
-      retries: 5
-      test:
-        - CMD
-        - /app/blocky
-        - healthcheck
-      timeout: 5s
+      disable: true
     image: ghcr.io/0xerr0r/blocky:v0.31.0@sha256:2e5696efe4f920a9c07efa5587650fb94e7c4dc68759a77debde3daaa1e30cdb
     labels:
       monitoring.logs: true

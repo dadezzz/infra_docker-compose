@@ -37,6 +37,7 @@ customDNS:
     actual.zarantonello.net: 100.79.164.85,fd7a:115c:a1e0::ab01:a48a
     grafana.zarantonello.net: 100.79.164.85,fd7a:115c:a1e0::ab01:a48a
     igl.zarantonello.dev: 100.88.193.108,fd7a:115c:a1e0::6301:c1ac
+    llama.zarantonello.dev: 100.88.193.108,fd7a:115c:a1e0::6301:c1ac
     mail.zarantonello.dev: 100.79.164.85,fd7a:115c:a1e0::ab01:a48a
     metrics.zarantonello.dev: 100.79.164.85,fd7a:115c:a1e0::ab01:a48a
     photos.zarantonello.net: 100.88.193.108,fd7a:115c:a1e0::6301:c1ac
