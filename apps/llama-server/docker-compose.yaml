@@ -1,27 +1,28 @@
+networks:
+  traefik_default:
+    external: true
+
 services:
-  llama:
+  llama-server:
     command: |
       -fit off
-      -b 1024 -ub 128
-      --ctx-size 65536
-      -ctk q5_1 -ctv q5_1
-      --model /var/lib/llama-server/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
-      --jinja
-      --chat-template-kwargs '{"preserve_thinking":true}'
-      --spec-type draft-mtp,ngram-mod
-      --temperature 0.6
-      --top-k 20
-      --top-p 0.95
-      --min-p 0
-      --presence-penalty 0.0
+      --no-mmap
+      -b 512 -ub 256
+      --models-max 1
+      --models-preset /var/lib/llama-server/models.ini
     devices:
       - /dev/dri
     image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:44f9aaf8364de415f71a58c36cea6936d535f5ce1677abbebd625d5b72b1aba7
-    ports:
-      - 127.0.0.1:8080:8080
+    labels:
+      traefik.enable: true
+      traefik.http.routers.llama-server.entrypoints: http,https
+      traefik.http.routers.llama-server.rule: Host(`llama.zarantonello.dev`)
+      traefik.http.services.llama-server.loadbalancer.server.port: 8080
+    networks:
+      - traefik_default
     read_only: true
     restart: always
     user: 1000:1000
     volumes:
-      - $HOME/.local/share/llama-server:/var/lib/llama-server:z,ro
-      - $HOME/.cache/llama-server:/home/ubuntu/.cache:z,U
+      - $HOME/volumes/llama-server/cache:/home/ubuntu/.cache:z,U
+      - $HOME/volumes/llama-server/models:/var/lib/llama-server:z,ro
