@@ -31,7 +31,7 @@ services:
   transmission:
     cap_drop:
       - ALL
-    image: git.zarantonello.dev/infra/transmission:4.1.2@sha256:c3c34650d1c001facfd26f3db217609d179f0ccfa5062a98169ec09b1e8a35d8
+    image: git.zarantonello.dev/infra/transmission:4.1.2@sha256:65f09f62c038d317a46bd38b90455356b682886a7edf236b5ada42e2e5184b09
     labels:
       monitoring.logs: true
       traefik.enable: true
