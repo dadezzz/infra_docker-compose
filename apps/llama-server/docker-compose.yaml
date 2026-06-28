@@ -12,7 +12,7 @@ services:
       --models-preset /var/lib/llama-server/models.ini
     devices:
       - /dev/dri
-    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:75ff956dda72b501e495429f6c5616ff325e01c32e18c8d81fe55cc8110b0e22
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan@sha256:acb5eb65041fa903d0b6eeb4d7fed59c05bff25a2b468ba6da334ff5175c5be1
     labels:
       traefik.enable: true
       traefik.http.routers.llama-server.entrypoints: http,https
