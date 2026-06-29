@@ -5,25 +5,25 @@ services for personal and development use.
 
 ## 🔧 Services
 
-| Service             | Description              | Purpose                                          |
-| ------------------- | ------------------------ | ------------------------------------------------ |
-| **actual**          | Actual Budget            | Personal finance tracking and budgeting          |
-| **alloy**           | Time Series Database     | Collects metrics data                            |
-| **blocky**          | DNS Ad-Blocker           | DNS-level ad blocking                            |
-| **cadvisor**        | Container Advisor        | Container resource usage and performance metrics |
-| **forgejo**         | Forgejo                  | Lightweight self-hosted Git service              |
-| **forgejo-runner**  | Forgejo Runner           | CI/CD runner for Forgejo actions                 |
-| **grafana**         | Grafana                  | Visualization, dashboards, and monitoring        |
-| **immich**          | Immich                   | High-performance photo and video backup solution |
-| **llama-server**    | llama.cpp Server         | Local LLM inference server                       |
-| **minecraft**       | Minecraft Server         | Minecraft game server                            |
-| **node-exporter**   | Prometheus Node Exporter | System-level hardware and OS metrics             |
-| **stalwart**        | Stalwart Mail Server     | Complete mail server solution                    |
-| **traefik**         | Traefik                  | Modern HTTP reverse proxy and load balancer      |
-| **transmission**    | Transmission             | Lightweight BitTorrent client                    |
-| **vaultwarden**     | Vaultwarden              | Password manager (Bitwarden compatible)          |
-| **victorialogs**    | VictoriaLogs             | Time series log management                       |
-| **victoriametrics** | VictoriaMetrics          | Fast, cost-effective monitoring stack            |
+| Service             | Purpose                                     |
+| ------------------- | ------------------------------------------- |
+| **actual**          | Personal finance tracking and budgeting     |
+| **alloy**           | Collects metrics data                       |
+| **blocky**          | DNS-level ad blocking                       |
+| **forgejo**         | Lightweight self-hosted Git service         |
+| **forgejo-runner**  | CI/CD runner for Forgejo actions            |
+| **Garage**          | S3 API server for backups with Restic       |
+| **grafana**         | Visualization, dashboards, and monitoring   |
+| **immich**          | Photo and video backup solution             |
+| **llama-server**    | Local LLM inference server                  |
+| **minecraft**       | Minecraft game server                       |
+| **node-exporter**   | System-level hardware and OS metrics        |
+| **stalwart**        | Complete mail server solution               |
+| **traefik**         | Modern HTTP reverse proxy and load balancer |
+| **transmission**    | Lightweight BitTorrent client               |
+| **vaultwarden**     | Password manager (Bitwarden compatible)     |
+| **victorialogs**    | Time series log management                  |
+| **victoriametrics** | Fast, cost-effective monitoring stack       |
 
 ## Configuration Management
 
