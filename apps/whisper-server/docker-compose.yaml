@@ -8,7 +8,7 @@ services:
     devices:
       - /dev/dri
     entrypoint: whisper-server
-    image: ghcr.io/ggml-org/whisper.cpp:main-vulkan@sha256:785a7e0577c02ed72ceaf42e0f9a17936d41766a48c2375729ef244ddfc381c7
+    image: ghcr.io/ggml-org/whisper.cpp:main-vulkan@sha256:379a8e09eb6ef01c589956f683089352a7e02bd81b2dd31b3211dbaf95f1ee70
     ports:
       - 127.0.0.1:8079:8079
     read_only: true
