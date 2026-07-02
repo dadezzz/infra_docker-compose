@@ -7,7 +7,8 @@ services:
     command: |
       -fit off
       --no-mmap
-      -b 512 -ub 256
+      -b 1024 -ub 256
+      --cache-ram 4096
       --models-max 1
       --models-preset /var/lib/llama-server/models.ini
     devices:
