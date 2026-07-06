@@ -22,7 +22,7 @@ services:
         target: /etc/stalwart/config.json
     healthcheck:
       disable: true
-    image: docker.io/stalwartlabs/stalwart:v0.16.11-alpine@sha256:325ecaa4c16552f42acb1e9a9093e068d2579dbb0984b0210d015cae6f896ba6
+    image: docker.io/stalwartlabs/stalwart:v0.16.12-alpine@sha256:91b89d50ca30a08a819430a049a4546e68c2ad088aba1e4cba5a9d32aaf8b0ca
     labels:
       monitoring.logs: true
       monitoring.metrics.path: /metrics/prometheus
