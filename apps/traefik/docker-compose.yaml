@@ -16,6 +16,9 @@ services:
       - source: traefik
         target: /etc/traefik/traefik.yml
     env_file: .env
+    extends:
+      file: _patches/${HOSTNAME}.yaml
+      service: traefik
     group_add:
       - 991
     image: docker.io/library/traefik:v3.7.8@sha256:4299bbed850421258fc5448c2e0e6ad350981d4d335a68de11b92448aedbefe5

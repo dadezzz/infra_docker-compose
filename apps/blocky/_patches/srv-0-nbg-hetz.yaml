@@ -1,8 +1,3 @@
-include:
-  - ../docker-compose.base.yaml
-
-name: blocky
-
 services:
   blocky:
     ports:
