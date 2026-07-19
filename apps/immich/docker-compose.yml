@@ -79,6 +79,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    devices:
+      - /dev/dri
     env_file: .env
     environment:
       DB_DATABASE_NAME: ${POSTGRES_DB}
